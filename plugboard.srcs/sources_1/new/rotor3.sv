@@ -1,4 +1,4 @@
-module rotor_II (
+module rotor_III (
     input  logic        clk,
     input  logic        reset,
     input  logic        step,               // avansare la liter? nou?
@@ -6,8 +6,8 @@ module rotor_II (
     input  logic [4:0]  letter_in,          // litera intrare (0..25)
     input  logic [4:0]  starting_position,  // pozi?ia ini?ial? rotor
     input  logic [1:0]  rotor_type,         // 00->Rotor I, 01->Rotor II, 10->Rotor III
-    output logic [4:0]  letter_out,         // litera ie?ire (0..25)
-    output logic        notch_out           // semnal notch pentru rotorul urm?tor
+    output logic [4:0]  letter_out       // litera ie?ire (0..25)
+    
 );
 // pozi?ia curent? a rotorului
     logic [4:0] position;
@@ -116,17 +116,14 @@ module rotor_II (
             end
         endcase
     end
-  logic is_at_notch;
-assign is_at_notch = (position == notch_pos);
 
 always_ff @(posedge clk or posedge reset) begin
     if (reset)
         position <= starting_position;
-    else if (step && (notch_in || is_at_notch))  
+    else if (step && notch_in)  
         position <= (position + 1) % 26;
 end
 
-assign notch_out = is_at_notch;
 logic [4:0] shifted_in;
     logic [4:0] shifted_out;
 
