@@ -8,7 +8,7 @@ module plugboard #(
     input  logic                     mode,
     input  logic [DATA_WIDTH-1:0]    data_in,
     input  logic [DATA_WIDTH-1:0]    cfg_in        [ALPHABET_SIZE],
-    input  logic                     cfg_valid,
+    input  logic                     set,
 
     output logic [DATA_WIDTH-1:0]    data_out
 );
@@ -25,7 +25,7 @@ module plugboard #(
                 plug_map[i] <= i[DATA_WIDTH-1:0];
             pair_count <= 0; // *** AD?UGAT: reset contor ***
         end
-        else if (mode == 1'b0 && cfg_valid && pair_count < 10) begin
+        else if (mode == 1'b0 && set && pair_count < 10) begin
             integer j;
             for (j = 0; j < ALPHABET_SIZE; j++)
                 plug_map[j] <= cfg_in[j];

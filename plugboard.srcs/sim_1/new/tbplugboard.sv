@@ -13,7 +13,7 @@ module tbplugboard;
     logic [DATA_WIDTH-1:0] data_out;
 
     logic [DATA_WIDTH-1:0] cfg_in [ALPHABET_SIZE];
-    logic cfg_valid;
+    logic set;
 
     
     plugboard #(
@@ -25,7 +25,7 @@ module tbplugboard;
         .mode(mode),
         .data_in(data_in),
         .cfg_in(cfg_in),
-        .cfg_valid(cfg_valid),
+        .set(set),
         .data_out(data_out)
     );
 
@@ -44,7 +44,7 @@ module tbplugboard;
         clk = 0;
         rst = 1;
         mode = 0;
-        cfg_valid = 0;
+        set = 0;
         data_in = 0;
 
         #20;
@@ -62,8 +62,8 @@ module tbplugboard;
         cfg_in[3] = 5'd2;  // D -> C
 
         mode = 0;  // remote config mode
-        cfg_valid = 1;
-        #10 cfg_valid = 0;
+        set = 1;
+        #10 set = 0;
 
         $display("[TB] Configuratia plugboard a fost incarcata!");
 
