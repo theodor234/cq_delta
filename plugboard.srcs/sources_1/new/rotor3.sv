@@ -16,7 +16,7 @@ module rotor_III (
     logic [4:0] wiring [0:25];
     logic [4:0] notch_pos;
 
-    // setare wiring + notch în func?ie de tipul rotorului
+    // setare wiring + notch ï¿½n func?ie de tipul rotorului
     always_comb begin
         case(rotor_type)
             2'b00: begin // Rotor I
@@ -125,12 +125,12 @@ always_ff @(posedge clk or posedge reset) begin
 end
 
 logic [4:0] shifted_in;
-    logic [4:0] shifted_out;
+    logic [5:0] shifted_out;
 
-    always_comb begin
-        shifted_in  = (letter_in + position) % 26;
-        shifted_out = wiring[shifted_in];
-        letter_out  = (shifted_out + 26 - position) % 26;
+   always_ff @(posedge clk) begin
+        shifted_in  <= (letter_in + position) % 26;
+        shifted_out <= wiring[shifted_in];
+        letter_out  <= (shifted_out + 26 - position) % 26;
     end
 
 endmodule

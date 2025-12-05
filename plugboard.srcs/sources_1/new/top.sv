@@ -45,12 +45,12 @@ module top (
         .data_ready(data_ready)
     );
 
-    // step = când primim un caracter (po?i redenumi/filtra dup? nevoie)
+    // step = cï¿½nd primim un caracter (po?i redenumi/filtra dup? nevoie)
     logic step;
     assign step = data_ready;
 
     // ------------------------
-    // Plugboard (înainte)
+    // Plugboard (ï¿½nainte)
     // ------------------------
     logic [4:0] plug_o;
 
@@ -71,7 +71,7 @@ module top (
     // Forward path through rotors
     // ------------------------
     logic [4:0] or1, or2, or3;           // outputs forward
-    logic       notch1, notch2, notch3; // notch outputs for stepping chain
+    logic       notch2, notch3; // notch outputs for stepping chain
 
     // Rotor 1 (rightmost rotor)
     rotor_I rotor1 (
@@ -132,18 +132,21 @@ module top (
     rotor_reflector rotor_ref3 (
         .letter_in(reflector_out),
         .refl_type(rotor_type[2]),
+        
         .letter_out(rref3)
     );
 
     rotor_reflector rotor_ref2 (
         .letter_in(rref3),
         .refl_type(rotor_type[1]),
+        
         .letter_out(rref2)
     );
 
     rotor_reflector rotor_ref1 (
         .letter_in(rref2),
         .refl_type(rotor_type[0]),
+        
         .letter_out(rref1)
     );
 
